@@ -9,7 +9,32 @@ Create a function named talkingCalendar that takes in a date string with the for
 */
 
 const talkingCalendar = function (date) {
-  // Your code here
+  const months = [
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  // 날짜를 분리
+  const [year, month, day] = date.split("/");
+
+  // 월 이름
+  const monthName = months[Number(month) - 1];
+
+  // 일 숫자 앞에 0 제거
+  const dayNum = Number(day);
+
+  // 접미사 함수
+  const getSuffix = (d) => {
+    if (d >= 11 && d <= 13) return "th"; // 11th, 12th, 13th 예외 처리
+    switch (d % 10) {
+      case 1: return "st";
+      case 2: return "nd";
+      case 3: return "rd";
+      default: return "th";
+    }
+  };
+
+  return `${monthName} ${dayNum}${getSuffix(dayNum)}, ${year}`;
 };
 
 console.log(talkingCalendar("2017/12/02")); // December 2nd, 2017
